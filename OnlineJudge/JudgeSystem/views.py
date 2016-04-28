@@ -60,7 +60,8 @@ def mainView(request):
 				problems = Problem.objects.all()
 				context = {
 				    'problem' : problems,
-				    'user' : user
+				    'user' : user,
+				    'userList' : JudgeUser.objects.all(),
 				}
 				return render(request,'index.html',context)
 			else:
@@ -74,6 +75,7 @@ def mainView(request):
 			context = {
 			    'problem' : problems,
 			    'user' : user,
+			    'userList' : JudgeUser.objects.all(),
 			}
 			return render(request,'index.html',context)
 		else:

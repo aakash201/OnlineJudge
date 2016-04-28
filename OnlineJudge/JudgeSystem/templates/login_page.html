@@ -7,22 +7,31 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<body>
-		<h1>LOGIN</h1>
 
-		<form action = "{% url 'index' %}" method = "post">
+
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                
+                <a class="navbar-brand" href="index.html">Deltech online judge</a>
+            </div>
+            <div align="right">
+            
+		<form class="form-inline" role = "form" action = "{% url 'index' %}" method = "post" style="color:#c2c2a3;margin-top:12px;">
 
 			{% csrf_token %}
-			Username : <br>
-			<input type = "text" name = "username">
-			<br>
-			Password : <br>
-			<input type = "text" name = "password">
-			<br>
-			<input type = "submit">
+			<label for="user" style = ""> Username : </label>
+			<input type = "text" name = "username" id="user" class = "form-control">
+			
+			<label for="pwd"> Password : </label> 
+			<input type = "text" name = "password" class = "form-control" id="pwd">
+			
+			<input type = "submit" class="btn btn-success" value="Go!">
 
 		</form> 
+		</div>
+		</nav>
 		<br><br>
-		
+		<!--  
 		<strong> OR SIGN UP </strong>
 		<form action = "{% url 'sign_up' %}" method = "post">
 
@@ -45,6 +54,40 @@
 		    <input type = "submit" value = "Sign Up !">
 
 		</form>
+		-->
+		<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+		<div class = "login-panel panel panel-primary">
+			<div class = "panel-heading">
+				<h3 class="panel-title"> Sign Up! </h3>
+			</div>
+
+			<div class="panel-body">
+				<form action = "{% url 'sign_up' %}" method = "post" role="form">
+					{% csrf_token %}
+					<fieldset>
+						<div class="form-group">
+                            <input class="form-control" placeholder="First name" name="first_name" type="text" autofocus>
+                        </div>
+						<div class="form-group">
+                            <input class="form-control" placeholder="Last name" name="last_name" type="text" autofocus>
+                        </div>
+						<div class="form-group">
+                            <input class="form-control" placeholder="Email" name="email_id" type="email" autofocus>
+                        </div>
+						<div class="form-group">
+                            <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                        </div>
+					</fieldset>
+					<input type = "submit" class="btn btn-success btn-block" value = "Sign Up !">
+				</form>
+			</div>
+		</div>
+		</div>
+		</div>
 	</body>
 </head>
 </html>

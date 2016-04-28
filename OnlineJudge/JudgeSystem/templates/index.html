@@ -1,35 +1,148 @@
-<html>
-<head>
-	  <title>Bootstrap Example</title>
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<body>
-	    <br>
-	    Hello {{user.username}}
-	    <br>
-	    <a href = "{% url 'add_problem' "Practice" %}">Add Problem</a>
-	    <br>
-	    <br>
-	    <a href = "{% url 'create_contest' %}">Create your own contest</a>
-	    <br>
-	    <br>
-	    <a href = "{% url 'userlist' %}"> All Users </a>
-	    <br>
-	    <a href = "{% url 'AllContests' %}"> All Contests </a>
-	    <br>
-	    <strong> Problem Set </strong>
-	    <br>
-		<ul>
-		{% for p in problem %}  
-		   <li>
-		   	<a href = "{% url 'details' p.contest.contest_id p.p_id  %}">{{p.contest}}/{{p.name}}</a>
-		   </li>
-		{% endfor %}
-	    </ul>
+<!DOCTYPE html>
+<html lang="en">
 
-   </body>
+<head>
+	{% load staticfiles %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static "bower_components/metisMenu/dist/metisMenu.min.css" %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static "dist/css/sb-admin-2.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static "bower_components/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+    	function showProblem(problem_name,contest)
+    	{
+    		location.href = "/judge/problems/" + contest + "/" + problem_name + "/";
+    	}
+    </script>
+
 </head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                
+                <a class="navbar-brand" href="index.html">Deltech online judge</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        
+                        <li>
+	                			<a href = "{% url 'add_problem' "Practice" %}" class = ""><i class="fa fa-plus fa-fw"></i> Add Problem</a>
+	                		</li>
+	                		<li>
+	                			 <a href = "{% url 'create_contest' %}"><i class="fa fa-pencil fa-fw"></i> Create your own contest</a>
+	                		</li>
+	                		<li>
+	                			<a href = "{% url 'userlist' %}"  ><i class="fa fa-users fa-fw"></i> All Users
+	                			</a> 
+	                		</li>
+	                		<li >
+	                			<a href="#"><i class="fa fa-users fa-fw"></i> Top Users <span class="fa arrow"></span></a>
+	                			<ul class="nav nav-second-level" id = "demo">
+	                				{% for u in userList %}
+	                				<li>
+	                					<a href = "{% url 'user_profile' u.username %}">{{u.username}}</a>
+	                				</li>
+	                				{% endfor %}
+	                			</ul>
+	                		</li>
+	                		<li>
+	                			<a href = "{% url 'AllContests' %}"><i class="fa fa-list fa-fw"></i> All Contests </a>
+	                		</li>
+                        
+                        </ul>
+                         
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <!-- code for panel -- >
+            <!-- /.container-fluid -->
+            <br>
+            <div class = "panel panel-primary">
+            	<div class = "panel-heading" style="font-size:26px;"> Hello! {{user.username}} </div>
+            	<div class = "panel-body"> <h1>Problem Set</h1>
+            	<br>
+            		
+
+            			{% for prob in problem %}
+            				<div class = "panel panel-info">
+	            				<div class = "panel-body">
+	            					<div class = "row">
+	            						<div class = "col-sm-3">
+	            							<a href="{% url 'details' prob.contest.contest_id prob.p_id %}" style="font-size:20px;"> {{prob.name}} </a>
+	            						</div>
+
+	            						<div class = "col-sm-5" align="center">
+	            							<a href = "{% url 'ContestDetails' prob.contest.contest_id %}" style="font-size:20px;"> {{prob.contest.contest_id}} </a>
+	            						</div>
+
+	            						<div class = "col-sm-4" style="float:right;">
+	            							<button type="button" class = "btn btn-primary btn-lg btn-block" onclick = "showProblem('{{prob.p_id}}' , '{{prob.contest.contest_id}}')">
+	            								Solve Problem
+	            							</button>
+	            						</div>
+
+	            					</div>
+            					</div>
+	            			</div>
+	            		{% endfor %}
+  
+            
+            	</div>
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{% static "bower_components/metisMenu/dist/metisMenu.min.js" %}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static "dist/js/sb-admin-2.js" %}"></script>
+
+</body>
+
 </html>
