@@ -63,7 +63,7 @@ def mainView(request):
 				    'user' : user,
 				    'userList' : JudgeUser.objects.all(),
 				}
-				return render(request,'index.html',context)
+				return HttpResponseRedirect(reverse('index'))
 			else:
 				return HttpResponseRedirect(reverse('login_page'))
 		else:
