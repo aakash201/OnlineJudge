@@ -29,7 +29,7 @@ python-apt===0.9.3.5ubuntu2
 python-dateutil==2.4.2
 python-debian===0.1.21-nmu2ubuntu2
 pyxdg==0.25
-reportlab==3.0
+reportlab==3.5.55
 requests==2.2.1
 sessioninstaller==0.0.0
 six==1.5.2
